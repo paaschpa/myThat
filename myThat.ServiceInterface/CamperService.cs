@@ -18,7 +18,7 @@ namespace myThat.ServiceInterface
             return new List<Camper>();
         }
 
-        public Camper Post(RegisterCamper request)
+        public Camper Put(EditCamper request)
         {
             var newSpeaker = request.TranslateTo<Camper>();
             using (var uow = new UnitOfWork(""))

@@ -39,9 +39,15 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DotNetOpenAuth">
+      <HintPath>..\packages\DotNetOpenAuth.Ultimate.4.3.4.13329\lib\net45-full\DotNetOpenAuth.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="ServiceStack">
       <HintPath>..\packages\ServiceStack.3.9.71\lib\net35\ServiceStack.dll</HintPath>
+    </Reference>
+    <Reference Include="ServiceStack.Authentication.OpenId">
+      <HintPath>..\packages\ServiceStack.Authentication.OpenId.3.9.71\lib\net35\ServiceStack.Authentication.OpenId.dll</HintPath>
     </Reference>
     <Reference Include="ServiceStack.Common">
       <HintPath>..\packages\ServiceStack.Common.3.9.71\lib\net35\ServiceStack.Common.dll</HintPath>
@@ -191,13 +197,20 @@
     <Content Include="Content\bootstrap\fonts\glyphicons-halflings-regular.woff" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Camper\Register.cshtml" />
+    <Content Include="Views\Camper\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\myThat.ServiceInterface\myThat.ServiceInterface.csproj">
       <Project>{4F8F7801-3560-4137-B930-0ED876A1FF41}</Project>
       <Name>myThat.ServiceInterface</Name>
     </ProjectReference>
+    <ProjectReference Include="..\myThat.ServiceModel\myThat.ServiceModel.csproj">
+      <Project>{CC86C7CF-AA70-4C1D-831F-D567B5B760B7}</Project>
+      <Name>myThat.ServiceModel</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Camper\Register.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

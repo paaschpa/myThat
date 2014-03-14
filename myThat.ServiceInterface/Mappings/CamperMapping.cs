@@ -18,6 +18,7 @@ namespace myThat.ServiceInterface.Mappings
             Map(x => x.LastName);
             Map(x => x.Company);
             Map(x => x.Twitter);
+            Map(x => x.Website);
             Map(x => x.Bio);
         }
     }

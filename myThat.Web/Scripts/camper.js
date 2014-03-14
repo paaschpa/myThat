@@ -1,6 +1,6 @@
 ﻿camperApp = angular.module('camperApp', ['angularFileUpload']);
 
-camperApp.controller('camperCtrl', ['$scope', '$upload', function ($scope, $upload) {
+camperApp.controller('camperEditCtrl', ['$scope', '$upload', function ($scope, $upload) {
     $scope.camper = {};
     $scope.image = "";
     $scope.onFileSelect = function($files) {
@@ -31,22 +31,6 @@ camperApp.controller('camperCtrl', ['$scope', '$upload', function ($scope, $uplo
     };
 
 }]).
-directive('sameAs', function () {
-    return {
-        require: 'ngModel',
-        link: function (scope, elm, attrs, ctrl) {
-            ctrl.$parsers.unshift(function (viewValue) {
-                if (viewValue === document.getElementsByName(attrs.sameAs)[0].value) {
-                    ctrl.$setValidity('sameAs', true);
-                    return viewValue;
-                } else {
-                    ctrl.$setValidity('sameAs', false);
-                    return undefined;
-                }
-            });
-        }
-    };
-}).
 directive('myUpload', [function () {
     return {
         restrict: 'A',
@@ -67,3 +51,46 @@ directive('myUpload', [function () {
         }
     };
 }]);
+
+var camperRegister = angular.module('camperRegister', []);
+
+
+camperRegister.controller('camperRegisterCtrl', ['$scope', '$http', function ($scope, $http) {
+    $('#RegistrationSuccess').hide();
+    $('#error').hide();
+
+    $scope.register = function() {
+        var newRegistration = {
+            'username': $scope.userName,
+            'password': $scope.password,
+            'autologin': true
+        };
+
+        var registration = $http.post('/api/register', newRegistration);
+        registration.success(function(data) {
+            $('#RegistrationForm').hide();
+            $('#RegistrationSuccess').show();
+        });
+        registration.error(function(data) {
+            $('#error').show();
+            $('#RegistrationSuccess').hide();
+            $scope.errorMsg = data.responseStatus.message;
+        });
+
+    };
+}]).directive('sameAs', function () {
+    return {
+        require: 'ngModel',
+        link: function(scope, elm, attrs, ctrl) {
+            ctrl.$parsers.unshift(function(viewValue) {
+                if (viewValue === document.getElementsByName(attrs.sameAs)[0].value) {
+                    ctrl.$setValidity('sameAs', true);
+                    return viewValue;
+                } else {
+                    ctrl.$setValidity('sameAs', false);
+                    return undefined;
+                }
+            });
+        }
+    };
+});

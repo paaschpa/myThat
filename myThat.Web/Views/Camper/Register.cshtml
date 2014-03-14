@@ -1,0 +1,141 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .btn-file {
+    position: relative;
+    overflow: hidden;
+}
+.btn-file input[type=file] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    font-size: 999px;
+    text-align: right;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    outline: none;
+    background: white;
+    cursor: inherit;
+    display: block;
+}
+
+</style>
+<h2>Register</h2>
+<div ng-app="camperApp">
+<div ng-controller="camperCtrl">
+    <form class="form-horizontal" role="form" name="frm">
+        <div class="form-group" ng-class="{'has-error': !frm.camperEmail.$valid}">
+            <label for="email" class="col-sm-2 control-label" required>Email</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" name="camperEmail" ng-model="camper.email" ng-required="true">
+            </div>
+        </div>
+
+        <div class="form-group" ng-class=" {'has-error': !frm.password.$valid} ">
+            <label for="password" class="col-sm-2 control-label">Password</label>
+            <div class="col-sm-4">
+                <input type="password" name="password" class="form-control" placeholder="" ng-model="camper.password" ng-required="true">
+            </div>
+        </div>
+        
+        <div class="form-group" ng-class="{'has-error has-feedback': !frm.confirmPassword.$valid}">
+            <label for="confirm_password" class="col-sm-2 control-label">Confirm Password</label>
+            <div class="col-sm-4">
+                <input type="password" class="form-control" placeholder="" name="confirmPassword" ng-model="camper.confirm_password" same-as="password">
+                <span class="glyphicon glyphicon-warning-sign form-control-feedback" ng-show="!frm.confirmPassword.$valid"></span>
+            </div>
+        </div>        
+
+        <div class="form-group" ng-class="{'has-error': !frm.firstName.$valid}">
+            <label for="firstName" class="col-sm-2 control-label">First Name</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" name="firstName" ng-model="camper.name" ng-required="true">
+            </div>
+        </div>
+
+        <div class="form-group" ng-class="{'has-error': !frm.lastName.$valid}">
+            <label for="lastName" class="col-sm-2 control-label">Last Name</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" name="lastName" ng-model="camper.lastname" ng-required="true">
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label for="companyName" class="col-sm-2 control-label">Company Name</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" placeholder="" ng-model="camper.companyname">
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label for="twitter" class="col-sm-2 control-label">Twitter ID</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" placeholder="" ng-model="camper.twitter">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="website" class="col-sm-2 control-label">Website</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" placeholder="" ng-model="camper.website">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="bio" class="col-sm-2 control-label">Your Bio</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" placeholder="" ng-model="camper.bio">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="profilePicUpload" class="col-sm-2 control-label">Profile Picture</label>
+            <div class="col-sm-4">
+                <span class="btn btn-default btn-file">
+                    Find Image<input type="file" class="form-control" name="profilePicUpload" my-upload ng-model="camper.profilePicUpload">
+                </span>
+                <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#imagePreview" ng-show="image != ''">
+                    Preview Image 
+                </button>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-4">
+                <button type="submit" class="btn btn-default">Sign in</button>
+            </div>
+        </div>
+    </form>
+    
+    
+    <!-- Modal -->
+    <div class="modal fade" id="imagePreview" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+          </div>
+          <div class="modal-body">
+                <img src="" id="profilePic" alt="">
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Save changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+
+</div>
+</div>
+
+@section localJS {
+<script src='@Href("/Scripts/camper.js")'></script>
+}

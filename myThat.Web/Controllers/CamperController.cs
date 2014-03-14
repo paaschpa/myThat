@@ -6,12 +6,9 @@ using System.Web.Mvc;
 
 namespace myThat.Controllers
 {
-    public class SpeakerController : Controller
+    public class CamperController : Controller
     {
-        //
-        // GET: /Speaker/
-
-        public ActionResult Index()
+        public ActionResult Register()
         {
             return View();
         }

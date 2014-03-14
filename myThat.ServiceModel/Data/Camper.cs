@@ -3,17 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ServiceStack.ServiceHost;
+using SharpStack.Models;
 
-namespace myThat.ServiceModel.Request
+namespace myThat.ServiceModel.Data
 {
-    [Route("/Speaker", "GET")]
-    public class Speakers
-    {
-    }
-
-    [Route("/Speaker", "POST")]
-    public class CreateSpeaker
+    public class Camper : TrackedClass
     {
         public virtual string FirstName { get; set; }
         public virtual string LastName { get; set; }

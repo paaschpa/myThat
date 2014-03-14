@@ -13,14 +13,14 @@ namespace myThat.ServiceInterface
 {
     public class SpeakerService : Service
     {
-        public List<Speaker> Get(Speakers request)
+        public List<Camper> Get(Campers request)
         {
-            return new List<Speaker>();
+            return new List<Camper>();
         }
 
-        public Speaker Post(CreateSpeaker request)
+        public Camper Post(RegisterCamper request)
         {
-            var newSpeaker = request.TranslateTo<Speaker>();
+            var newSpeaker = request.TranslateTo<Camper>();
             using (var uow = new UnitOfWork(""))
             {
                 uow.Save(newSpeaker);

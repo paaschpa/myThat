@@ -133,7 +133,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\SpeakerController.cs" />
+    <Compile Include="Controllers\CamperController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -151,9 +151,12 @@
     <Content Include="Content\bootstrap\js\bootstrap.js" />
     <Content Include="Content\bootstrap\js\bootstrap.min.js" />
     <Content Include="Global.asax" />
+    <Content Include="Images\footer-ArrowUp.png" />
+    <Content Include="Images\footer-logo.png" />
+    <Content Include="Images\Nav-Tree.png" />
     <Content Include="Scripts\angular.js" />
     <Content Include="Scripts\jquery.js" />
-    <Content Include="Scripts\speaker.js" />
+    <Content Include="Scripts\camper.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -165,7 +168,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Images\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
@@ -187,7 +189,7 @@
     <Content Include="Content\bootstrap\fonts\glyphicons-halflings-regular.woff" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Speaker\Index.cshtml" />
+    <Content Include="Views\Camper\Register.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\myThat.ServiceInterface\myThat.ServiceInterface.csproj">

@@ -31,7 +31,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="ServiceStack.Interfaces">
-      <HintPath>..\ThatConference.ServiceInterface\bin\Debug\ServiceStack.Interfaces.dll</HintPath>
+      <HintPath>..\packages\ServiceStack.Common.3.9.71\lib\net35\ServiceStack.Interfaces.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -43,8 +43,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Request\Schema.cs" />
-    <Compile Include="Request\Speakers.cs" />
-    <Compile Include="Data\Speaker.cs" />
+    <Compile Include="Request\Campers.cs" />
+    <Compile Include="Data\Camper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

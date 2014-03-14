@@ -9,7 +9,7 @@ using FluentNHibernate.Mapping;
 
 namespace myThat.ServiceInterface.Mappings
 {
-    public class SpeakerMapping : TrackedClassMap<Speaker>
+    public class SpeakerMapping : TrackedClassMap<Camper>
     {
         public SpeakerMapping()
         {

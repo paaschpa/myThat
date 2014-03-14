@@ -27,7 +27,7 @@ namespace myThat
 
         public class myThatAppHost : AppHostBase
         {
-            public myThatAppHost() : base("Web Services", typeof(SpeakerService).Assembly)
+            public myThatAppHost() : base("Web Services", typeof(CamperService).Assembly)
             { }
 
             public override void Configure(Funq.Container container)

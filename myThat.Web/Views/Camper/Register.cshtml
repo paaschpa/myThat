@@ -54,7 +54,7 @@
         <div class="form-group" ng-class="{'has-error': !frm.firstName.$valid}">
             <label for="firstName" class="col-sm-2 control-label">First Name</label>
             <div class="col-sm-4">
-                <input type="text" class="form-control" name="firstName" ng-model="camper.name" ng-required="true">
+                <input type="text" class="form-control" name="firstName" ng-model="camper.firstname" ng-required="true">
             </div>
         </div>
 
@@ -97,9 +97,10 @@
             <label for="profilePicUpload" class="col-sm-2 control-label">Profile Picture</label>
             <div class="col-sm-4">
                 <span class="btn btn-default btn-file">
-                    Find Image<input type="file" class="form-control" name="profilePicUpload" my-upload ng-model="camper.profilePicUpload">
+                    Profile Picture<input type="file" ng-file-select="onFileSelect($files)">
                 </span>
-                <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#imagePreview" ng-show="image != ''">
+                <label for="imagePath" style="padding-left:5px">{{image.name}}</label>
+                <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#imagePreview" ng-hide="true">
                     Preview Image 
                 </button>
             </div>
@@ -107,7 +108,7 @@
 
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-4">
-                <button type="submit" class="btn btn-default">Sign in</button>
+                <button type="submit" class="btn btn-default" ng-disabled="frm.$invalid" ng-click="formSubmit()">Register</button>
             </div>
         </div>
     </form>
@@ -137,5 +138,7 @@
 </div>
 
 @section localJS {
-<script src='@Href("/Scripts/camper.js")'></script>
+    <script src='@Href("/Scripts/angular-file-upload-shim.js")'></script>
+    <script src='@Href("/Scripts/angular-file-upload.js")'></script>
+    <script src='@Href("/Scripts/camper.js")'></script>
 }

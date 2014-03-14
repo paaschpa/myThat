@@ -9,12 +9,14 @@ using FluentNHibernate.Mapping;
 
 namespace myThat.ServiceInterface.Mappings
 {
-    public class SpeakerMapping : TrackedClassMap<Camper>
+    public class CamperMapping : TrackedClassMap<Camper>
     {
-        public SpeakerMapping()
+        public CamperMapping()
         {
+            Map(x => x.Email);
             Map(x => x.FirstName);
             Map(x => x.LastName);
+            Map(x => x.Company);
             Map(x => x.Twitter);
             Map(x => x.Bio);
         }

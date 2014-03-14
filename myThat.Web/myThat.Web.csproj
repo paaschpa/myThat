@@ -154,6 +154,8 @@
     <Content Include="Images\footer-ArrowUp.png" />
     <Content Include="Images\footer-logo.png" />
     <Content Include="Images\Nav-Tree.png" />
+    <Content Include="Scripts\angular-file-upload-shim.js" />
+    <Content Include="Scripts\angular-file-upload.js" />
     <Content Include="Scripts\angular.js" />
     <Content Include="Scripts\jquery.js" />
     <Content Include="Scripts\camper.js" />

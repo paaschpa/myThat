@@ -11,7 +11,7 @@ using myThat.ServiceModel.Request;
 
 namespace myThat.ServiceInterface
 {
-    public class SpeakerService : Service
+    public class CamperService : Service
     {
         public List<Camper> Get(Campers request)
         {

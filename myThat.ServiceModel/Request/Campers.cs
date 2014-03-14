@@ -7,12 +7,12 @@ using ServiceStack.ServiceHost;
 
 namespace myThat.ServiceModel.Request
 {
-    [Route("/Campers", "GET")]
+    [Route("/Camper", "GET")]
     public class Campers
     {
     }
 
-    [Route("/Campers", "POST")]
+    [Route("/Camper", "POST")]
     public class RegisterCamper
     {
         public virtual string Email { get; set; }

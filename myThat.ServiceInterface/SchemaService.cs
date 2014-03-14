@@ -14,7 +14,7 @@ namespace myThat.ServiceInterface
     {
         public string Get(Schema request)
         {
-            NHibernateConfigurator.Initialize<SpeakerMapping>();
+            NHibernateConfigurator.Initialize<CamperMapping>();
             return NHibernateConfigurator.GetSchema();
         }
     }

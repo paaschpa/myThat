@@ -1,7 +1,7 @@
 ﻿@{
     ViewBag.Title = "Register";
 }
-
+<h2>Summer Camp Registration</h2>
 <div ng-app="camperRegister">
     <div ng-controller="camperRegisterCtrl">
         <div id="error" class="alert alert-danger">
@@ -30,7 +30,7 @@
             <div class="form-group" ng-class="{'has-error has-feedback': !frm.confirmPassword.$valid}">
                 <label for="confirm_password" class="col-sm-2 control-label">Confirm Password</label>
                 <div class="col-sm-4">
-                    <input type="password" class="form-control" placeholder="" name="confirmPassword" ng-model="camper.confirm_password" same-as="password">
+                    <input type="password" class="form-control" placeholder="" name="confirmPassword" ng-model="camper.confirm_password" same-as="password" ng-required="true">
                     <span class="glyphicon glyphicon-warning-sign form-control-feedback" ng-show="!frm.confirmPassword.$valid"></span>
                 </div>
             </div>   
@@ -40,10 +40,14 @@
                     <button type="submit" class="btn btn-default" ng-click="register()" ng-disabled="RegistrationForm.$invalid" >Register</button>
                 </div>
             </div>
-
         </form>
         
-        <div id="RegistrationSuccess">Success Start <a href="/Fulfillment">Fulfilling Now!</a></div>
+        OR
+       <div> 
+        <a href="/api/auth/googleopenid" class="btn btn-info">Register with Google Account</a>
+       </div> 
+
+       <div id="RegistrationSuccess">Success Start <a href="/Fulfillment">Fulfilling Now!</a></div>
     </div>
 </div>
 

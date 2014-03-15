@@ -58,9 +58,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Mappings\CamperMapping.cs" />
+    <Compile Include="Mappings\UserAuthMappings.cs" />
+    <Compile Include="Mappings\UserOAuthProviderMappings.cs" />
     <Compile Include="SchemaService.cs" />
     <Compile Include="CamperService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="NHibrenateUserAuthRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\sharpstack\src\SharpStack\SharpStack.csproj">

@@ -14,6 +14,5 @@ namespace myThat.Controllers
         {
             return View();
         }
-
     }
 }

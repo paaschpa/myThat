@@ -24,6 +24,7 @@ namespace myThat.ServiceInterface
             using (var uow = new UnitOfWork(""))
             {
                 uow.Save(newSpeaker);
+                uow.CommitTransaction();
             }
 
             return newSpeaker;

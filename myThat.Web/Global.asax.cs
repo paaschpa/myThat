@@ -17,7 +17,9 @@ using ServiceStack.ServiceInterface;
 using ServiceStack.ServiceInterface.Auth;
 using ServiceStack.ServiceInterface.Validation;
 using ServiceStack.WebHost.Endpoints;
+using SharpStack.Data.Database;
 using myThat.ServiceInterface;
+using myThat.ServiceInterface.Mappings;
 using myThat.ServiceModel.Validators;
 
 namespace myThat
@@ -59,21 +61,10 @@ namespace myThat
                 //Provide service for new users to register so they can login with supplied credentials.
                 Plugins.Add(new RegistrationFeature());
 
-                container.Register<IDbConnectionFactory>(new OrmLiteConnectionFactory(ConfigurationManager.ConnectionStrings["myThat"].ToString(), //ConnectionString in Web.Config
-                   SqlServerOrmLiteDialectProvider.Instance)
-                   {
-                       ConnectionFilter = x => new ProfiledDbConnection(x, Profiler.Current)
-                   });
-
+                NHibernateConfigurator.Initialize<CamperMapping>();
                 //Store User Data into the referenced SqlServer database
                 container.Register<IUserAuthRepository>(c =>
-                    new OrmLiteAuthRepository(c.Resolve<IDbConnectionFactory>())); //Use OrmLite DB Connection to persist the UserAuth and AuthProvider info
-
-                var authRepo = (OrmLiteAuthRepository)container.Resolve<IUserAuthRepository>(); //If using and RDBMS to persist UserAuth, we must create required tables
-                if (appSettings.Get("RecreateAuthTables", false))
-                    authRepo.DropAndReCreateTables(); //Drop and re-create all Auth and registration tables
-                else
-                    authRepo.CreateMissingTables();   //Create only the missing tables
+                    new NHibernateUserAuthRepository()); //Can Use OrmLite DB Connection to persist the UserAuth and AuthProvider info
 
                 //override the default registration validation with your own custom implementation
                 container.RegisterAs<MyRegistrationValidator, IValidator<Registration>>();

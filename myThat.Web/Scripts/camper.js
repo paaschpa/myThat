@@ -12,7 +12,7 @@ camperApp.controller('camperEditCtrl', ['$scope', '$upload', function ($scope, $
     $scope.formSubmit = function () {
         $scope.upload = $upload.upload({
             url: '/api/camper', //upload.php script, node.js route, or servlet url
-            method: 'POST', //or PUT,
+            method: 'PUT', //or PUT,
            // headers: {'headerKey': 'headerValue'},
            // withCredentials: true,
            data: $scope.camper,
@@ -53,16 +53,16 @@ directive('myUpload', [function () {
 }]);
 
 var camperRegister = angular.module('camperRegister', []);
-
-
 camperRegister.controller('camperRegisterCtrl', ['$scope', '$http', function ($scope, $http) {
     $('#RegistrationSuccess').hide();
     $('#error').hide();
 
+    $scope.camper = {};
     $scope.register = function() {
         var newRegistration = {
-            'username': $scope.userName,
-            'password': $scope.password,
+            'username': $scope.camper.email,
+            'email': $scope.camper.email,
+            'password': $scope.camper.password,
             'autologin': true
         };
 

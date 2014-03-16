@@ -7,12 +7,14 @@ using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Routing;
 using ServiceStack.Authentication.OpenId;
+using ServiceStack.CacheAccess;
 using ServiceStack.Configuration;
 using ServiceStack.FluentValidation;
 using ServiceStack.MiniProfiler;
 using ServiceStack.MiniProfiler.Data;
 using ServiceStack.OrmLite;
 using ServiceStack.OrmLite.SqlServer;
+using ServiceStack.Redis;
 using ServiceStack.ServiceInterface;
 using ServiceStack.ServiceInterface.Auth;
 using ServiceStack.ServiceInterface.Validation;
@@ -68,6 +70,10 @@ namespace myThat
 
                 //override the default registration validation with your own custom implementation
                 container.RegisterAs<MyRegistrationValidator, IValidator<Registration>>();
+
+                var redisCon = ConfigurationManager.AppSettings["redisUrl"].ToString();
+                container.Register<IRedisClientsManager>(new PooledRedisClientManager(20, 60, redisCon));
+                container.Register<ICacheClient>(c => (ICacheClient)c.Resolve<IRedisClientsManager>().GetCacheClient());
             }
         }
     }

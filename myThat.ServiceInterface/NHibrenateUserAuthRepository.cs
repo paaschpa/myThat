@@ -168,6 +168,7 @@ namespace myThat.ServiceInterface.Mappings
 
                 oAuthProvider.PopulateMissing(tokens);
                 userAuth.PopulateMissing(oAuthProvider);
+                userAuth.Email = oAuthProvider.Email;
 
                 userAuth.ModifiedDate = DateTime.UtcNow;
                 if (userAuth.CreatedDate == default(DateTime))

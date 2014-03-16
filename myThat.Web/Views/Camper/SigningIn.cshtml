@@ -1,0 +1,51 @@
+﻿@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using ServiceStack.CacheAccess
+@using ServiceStack.ServiceInterface
+@using ServiceStack.ServiceInterface.Auth
+@using ServiceStack.WebHost.Endpoints
+@using myThat
+
+<h2>Login</h2>
+
+@Html.ValidationSummary(true, "Login was unsuccessful. Please correct the errors and try again.")
+@{
+var key = SessionFeature.GetSessionKey() ?? "";
+var sess = AppHostBase.Resolve<ICacheClient>().Get<AuthUserSession>(key);
+//Should you have logic in your views? No. Do I? Yes.
+//Does it bother me? A little bit. Enough to fix it? No
+}
+@if (sess != null && sess.IsAuthenticated)
+{
+    @:Already Logged in as @sess.Email
+}
+else
+{
+
+    <form class="form-horizontal" action="LogIn" method="post">
+        <div class="control-group">
+            <label class="control-label">User Name</label>
+            <div class="controls">
+                <input type="text" id="userName" placeholder="User Name" name="userName">
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label">Password</label>
+            <div class="controls">
+                <input type="password" id="password" placeholder="Password" name="password">
+            </div>
+        </div>
+        <div class="control-group">
+            <div class="controls">
+                <button type="submit" class="btn">Sign in</button>
+            </div>
+        </div>
+    </form>
+    
+    @:OR
+    <div> 
+        <a href="/api/auth/googleopenid" class="btn btn-info">Sign In with Google Account</a>
+    </div> 
+}

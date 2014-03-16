@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using ServiceStack.Common;
 using ServiceStack.ServiceInterface;
 using SharpStack.Data.UnitsOfWork;
+using SharpStack.Services.UnitsOfWork;
+using myThat.ServiceInterface.QueryObjects;
 using myThat.ServiceModel.Data;
 using myThat.ServiceModel.Request;
 
@@ -13,6 +15,16 @@ namespace myThat.ServiceInterface
 {
     public class CamperService : Service
     {
+        public virtual IUnitOfWork GetUnitOfWork()
+        {
+            return new UnitOfWork("");
+        }
+
+        public virtual CamperQueryObject GetCamperQueryObject(IUnitOfWork uow)
+        {
+            return new CamperQueryObject(uow);
+        }
+
         public List<Camper> Get(Campers request)
         {
             return new List<Camper>();
@@ -20,14 +32,15 @@ namespace myThat.ServiceInterface
 
         public Camper Put(EditCamper request)
         {
-            var newSpeaker = request.TranslateTo<Camper>();
-            using (var uow = new UnitOfWork(""))
+            using (var uow = GetUnitOfWork())
             {
-                uow.Save(newSpeaker);
+                var camperQueryObject = GetCamperQueryObject(uow);
+                var camper = camperQueryObject.RestrictByEmail(request.Email).GetSingle();
+                camper.PopulateWithNonDefaultValues(request);
+                uow.Save(camper);
                 uow.CommitTransaction();
+                return camper;
             }
-
-            return newSpeaker;
         }
     }
 }

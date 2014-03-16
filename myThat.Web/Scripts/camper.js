@@ -1,33 +1,49 @@
 ﻿camperApp = angular.module('camperApp', ['angularFileUpload']);
 
-camperApp.controller('camperEditCtrl', ['$scope', '$upload', function ($scope, $upload) {
+camperApp.controller('camperEditCtrl', ['$scope', '$upload','$http', function ($scope, $upload, $http) {
     $scope.camper = {};
     $scope.image = "";
+
     $scope.onFileSelect = function($files) {
         //$files: an array of files selected, each file has name, size, and type.
         for (var i = 0; i < $files.length; i++) {
             $scope.image = $files[i];
         }
     };
+
     $scope.formSubmit = function () {
-        $scope.upload = $upload.upload({
-            url: '/api/camper', //upload.php script, node.js route, or servlet url
-            method: 'PUT', //or PUT,
-           // headers: {'headerKey': 'headerValue'},
-           // withCredentials: true,
-           data: $scope.camper,
-           file: $scope.image,
-           // file: $files, //upload multiple files, this feature only works in HTML5 FromData browsers
-           /* set file formData name for 'Content-Desposition' header. Default: 'file' */
-           //fileFormDataName: myFile, //OR for HTML5 multiple upload only a list: ['name1', 'name2', ...]
-           /* customize how data is added to formData. See #40#issuecomment-28612000 for example */
-           //formDataAppender: function(formData, key, val){} //#40#issuecomment-28612000
-        }).progress(function (evt) {
-            console.log('percent: ' + parseInt(100.0 * evt.loaded / evt.total));
-        }).success(function(data, status, headers, config) {
-            // file is uploaded successfully
-            console.log(data);
-        });   
+        var url = '/api/camper';
+        var method = 'put';
+
+        if ($scope.image) {
+
+            $scope.upload = $upload.upload({
+                url: url, //upload.php script, node.js route, or servlet url
+                method: method, //or put,
+                // headers: {'headerkey': 'headervalue'},
+                // withcredentials: true,
+                data: $scope.camper,
+                file: $scope.image,
+                // file: $files, //upload multiple files, this feature only works in html5 fromdata browsers
+                /* set file formdata name for 'content-desposition' header. default: 'file' */
+                //fileformdataname: myfile, //or for html5 multiple upload only a list: ['name1', 'name2', ...]
+                /* customize how data is added to formdata. see #40#issuecomment-28612000 for example */
+                //formdataappender: function(formdata, key, val){} //#40#issuecomment-28612000
+            }).progress(function(evt) {
+                console.log('percent: ' + parseint(100.0 * evt.loaded / evt.total));
+            }).success(function(data, status, headers, config) {
+                // file is uploaded successfully
+                console.log(data);
+            });
+        } else {
+            var editCamper = $http.put(url, $scope.camper);
+            editCamper.success(function (data) {
+                alert('Update');
+            });
+            editCamper.error(function (data) {
+                alert('Error');
+            });
+        }
     };
 
 }]).

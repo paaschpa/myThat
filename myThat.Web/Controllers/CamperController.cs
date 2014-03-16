@@ -29,7 +29,7 @@ namespace myThat.Controllers
             return View(model);
         }
 
-        public ActionResult SigningIn()
+        public ActionResult SignIn()
         {
             return View();
         }

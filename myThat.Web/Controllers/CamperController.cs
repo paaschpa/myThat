@@ -15,6 +15,11 @@ namespace myThat.Controllers
 {
     public class CamperController : Controller
     {
+        public ActionResult Index(Guid camperId)
+        {
+            return View();
+        }
+
         public ActionResult Register()
         {
             return View();

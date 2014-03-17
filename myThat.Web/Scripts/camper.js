@@ -16,7 +16,7 @@ camperApp.controller('camperEditCtrl', ['$scope', '$upload','$http', function ($
         var method = 'put';
 
         if ($scope.image) {
-
+            //PUT with Photo Upload
             $scope.upload = $upload.upload({
                 url: url, //upload.php script, node.js route, or servlet url
                 method: method, //or put,
@@ -34,6 +34,7 @@ camperApp.controller('camperEditCtrl', ['$scope', '$upload','$http', function ($
                 console.log(data);
             });
         } else {
+            //PUT with no photo
             var editCamper = $http.put(url, $scope.camper);
             editCamper.success(function (data) {
                 alert('Update');

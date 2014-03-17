@@ -28,6 +28,9 @@
 <h2>Tell us a little more about You</h2>
 <div ng-app="camperApp">
     <div ng-controller="camperEditCtrl">
+        <div id="messageBox" ng-hide>
+            
+        </div>
         <div ng-init="camper.email='@Model.Email'"></div>
         <form class="form-horizontal" role="form" name="frm">
             <input type="hidden" name="email" value="@Model.Email"/> 

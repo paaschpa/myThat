@@ -29,8 +29,6 @@ camperApp.controller('camperEditCtrl', ['$scope', '$upload','$http', function ($
                 //fileformdataname: myfile, //or for html5 multiple upload only a list: ['name1', 'name2', ...]
                 /* customize how data is added to formdata. see #40#issuecomment-28612000 for example */
                 //formdataappender: function(formdata, key, val){} //#40#issuecomment-28612000
-            }).progress(function(evt) {
-                console.log('percent: ' + parseint(100.0 * evt.loaded / evt.total));
             }).success(function(data, status, headers, config) {
                 // file is uploaded successfully
                 console.log(data);

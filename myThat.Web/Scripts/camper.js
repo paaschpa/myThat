@@ -3,7 +3,16 @@
 camperApp.controller('camperEditCtrl', ['$scope', '$upload','$http', function ($scope, $upload, $http) {
     $scope.camper = {};
     $scope.image = "";
+    $scope.submitMessage = "";
 
+    var camperRequest = $http.get('/api/camper/getprofile');
+    camperRequest.success(function (data) {
+        $scope.camper = data;
+    });
+    camperRequest.error(function(data) {
+        $scope.camper = {};
+    });
+    
     $scope.onFileSelect = function($files) {
         //$files: an array of files selected, each file has name, size, and type.
         for (var i = 0; i < $files.length; i++) {
@@ -14,7 +23,7 @@ camperApp.controller('camperEditCtrl', ['$scope', '$upload','$http', function ($
     $scope.formSubmit = function () {
         var url = '/api/camper';
         var method = 'put';
-
+        
         if ($scope.image) {
             //PUT with Photo Upload
             $scope.upload = $upload.upload({
@@ -28,20 +37,30 @@ camperApp.controller('camperEditCtrl', ['$scope', '$upload','$http', function ($
                 /* set file formdata name for 'content-desposition' header. default: 'file' */
                 //fileformdataname: myfile, //or for html5 multiple upload only a list: ['name1', 'name2', ...]
                 /* customize how data is added to formdata. see #40#issuecomment-28612000 for example */
-                //formdataappender: function(formdata, key, val){} //#40#issuecomment-28612000
+                //formdataappender: function(formdata, key, vaul){} //#40#issuecomment-28612000
             }).success(function(data, status, headers, config) {
                 // file is uploaded successfully
+                submitSuccess(data);
                 console.log(data);
             });
         } else {
             //PUT with no photo
             var editCamper = $http.put(url, $scope.camper);
             editCamper.success(function (data) {
-                alert('Update');
+                submitSuccess(data);
             });
             editCamper.error(function (data) {
-                alert('Error');
+                submitFailure(data);
             });
+        }
+
+        function submitSuccess(data) {
+            $scope.submitMessage = 'We got it. Thanks for the update!';
+        }
+
+        function submitFailure(data) {
+            $scope.submitMessage = "Uh Oh. We're having issues. Maybe you can help us solve our problem...Error Code: " + data.responseStatus.errorCode;
+            $scope.submitMessage += "\n Error Message: " + data.responseStatus.message;
         }
     };
 

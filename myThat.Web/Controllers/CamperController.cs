@@ -7,13 +7,14 @@ using System.Web.Mvc;
 using System.Web.Security;
 using ServiceStack;
 using ServiceStack.CacheAccess;
+using ServiceStack.Mvc;
 using ServiceStack.ServiceInterface;
 using ServiceStack.ServiceInterface.Auth;
 using ServiceStack.WebHost.Endpoints;
 
 namespace myThat.Controllers
 {
-    public class CamperController : Controller
+    public class CamperController : ServiceStackController<AuthUserSession>
     {
         public ActionResult Index(Guid camperId)
         {
@@ -25,6 +26,7 @@ namespace myThat.Controllers
             return View();
         }
 
+        [Authenticate]
         public ActionResult Edit()
         {
             var key = SessionFeature.GetSessionKey() ?? "";
@@ -40,7 +42,7 @@ namespace myThat.Controllers
         }
 
         [HttpPost]
-        public ActionResult LogIn(string userName, string password)
+        public ActionResult SignIn(string userName, string password)
         {
             try
             {
@@ -71,6 +73,18 @@ namespace myThat.Controllers
             //forms logout
             FormsAuthentication.SignOut();
             return RedirectToAction("Index", "Home");
+        }
+
+        public override ActionResult AuthenticationErrorResult
+        {
+            get
+            {
+                if (this.AuthSession == null || this.AuthSession.IsAuthenticated == false)
+                {
+                    return Redirect("~/Camper/SignIn");
+                }
+                return base.AuthenticationErrorResult;
+            }
         }
     }
 }

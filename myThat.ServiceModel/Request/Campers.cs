@@ -7,8 +7,8 @@ using ServiceStack.ServiceHost;
 
 namespace myThat.ServiceModel.Request
 {
-    [Route("/Camper", "GET")]
-    public class Campers
+    [Route("/Camper/GetProfile", "GET")]
+    public class CamperProfile
     {
     }
 

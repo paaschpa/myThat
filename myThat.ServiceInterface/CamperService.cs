@@ -6,6 +6,7 @@ using System.Linq;
 using ServiceStack.Common;
 using ServiceStack.ServiceHost;
 using ServiceStack.ServiceInterface;
+using ServiceStack.ServiceInterface.Auth;
 using SharpStack.Data.UnitsOfWork;
 using SharpStack.Services.UnitsOfWork;
 using myThat.ServiceInterface.QueryObjects;
@@ -20,9 +21,15 @@ namespace myThat.ServiceInterface
 {
     public class CamperService : Service
     {
-        public List<Camper> Get(Campers request)
+        public Camper Get(CamperProfile request)
         {
-            return new List<Camper>();
+            using (var uow = GetUnitOfWork())
+            {
+                var sess = base.SessionAs<AuthUserSession>();
+                var camper = GetCamperQueryObject(uow).RestrictByEmail(sess.Email).GetSingle();
+
+                return camper;
+            }
         }
 
         public Camper Put(EditCamper request)

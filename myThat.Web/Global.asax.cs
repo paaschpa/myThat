@@ -12,6 +12,7 @@ using ServiceStack.Configuration;
 using ServiceStack.FluentValidation;
 using ServiceStack.MiniProfiler;
 using ServiceStack.MiniProfiler.Data;
+using ServiceStack.Mvc;
 using ServiceStack.OrmLite;
 using ServiceStack.OrmLite.SqlServer;
 using ServiceStack.Redis;
@@ -58,7 +59,7 @@ namespace myThat
                     new TwitterAuthProvider(appSettings),       //Sign-in with Twitter
                     //new FacebookAuthProvider(appSettings),      //Sign-in with Facebook
                     new GoogleOpenIdOAuthProvider(appSettings), //Sign-in with Google OpenId
-                }));
+                }) {HtmlRedirect = "/Camper/SignIn"});
 
                 //Provide service for new users to register so they can login with supplied credentials.
                 Plugins.Add(new RegistrationFeature());
@@ -74,6 +75,8 @@ namespace myThat
                 var redisCon = ConfigurationManager.AppSettings["redisUrl"].ToString();
                 container.Register<IRedisClientsManager>(new PooledRedisClientManager(20, 60, redisCon));
                 container.Register<ICacheClient>(c => (ICacheClient)c.Resolve<IRedisClientsManager>().GetCacheClient());
+
+                ControllerBuilder.Current.SetControllerFactory(new FunqControllerFactory(container));
             }
         }
     }

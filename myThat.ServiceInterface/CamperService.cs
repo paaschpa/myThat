@@ -39,7 +39,6 @@ namespace myThat.ServiceInterface
                 var camperQueryObject = GetCamperQueryObject(uow);
                 var camper = camperQueryObject.RestrictByEmail(request.Email).GetSingle();
                 camper.PopulateWithNonDefaultValues(request);
-                uow.Save(camper);
                 //Save image down
                 foreach (var uploadedFile in RequestContext.Files.Where(uploadedFile => uploadedFile.ContentLength > 0))
                 {
@@ -47,10 +46,12 @@ namespace myThat.ServiceInterface
                     {
                         var fileType = Path.GetExtension(uploadedFile.FileName);
                         uploadedFile.WriteTo(ms);
-                        WriteImage(ms, camper.Id + "." + fileType);
+                        WriteImage(ms, camper.Id + fileType);
+                        camper.ProfileImageName = camper.Id + fileType;
                     }
                 }
 
+                uow.Save(camper);
                 uow.CommitTransaction();
                 return camper;
             }

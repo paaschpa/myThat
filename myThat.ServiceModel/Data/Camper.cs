@@ -16,9 +16,10 @@ namespace myThat.ServiceModel.Data
         public virtual string Twitter { get; set; }
         public virtual string Website { get; set; }
         public virtual string Bio { get; set; }
+        public virtual string ProfileImageName { get; set; }
 
-        public virtual string ImagePath { 
-            get { return "/images/" + this.Id + ".png"; }
+        public virtual string ImagePath {
+            get { return "/images/campers/" + ProfileImageName; }
         }
     }
 }

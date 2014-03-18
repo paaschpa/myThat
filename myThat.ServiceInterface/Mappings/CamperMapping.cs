@@ -20,6 +20,7 @@ namespace myThat.ServiceInterface.Mappings
             Map(x => x.Twitter);
             Map(x => x.Website);
             Map(x => x.Bio);
+            Map(x => x.ProfileImageName);
         }
     }
 }

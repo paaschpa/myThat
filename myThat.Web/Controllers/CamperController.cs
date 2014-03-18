@@ -11,6 +11,9 @@ using ServiceStack.Mvc;
 using ServiceStack.ServiceInterface;
 using ServiceStack.ServiceInterface.Auth;
 using ServiceStack.WebHost.Endpoints;
+using SharpStack.Data.UnitsOfWork;
+using myThat.ServiceInterface.QueryObjects;
+using myThat.ServiceModel.Data;
 
 namespace myThat.Controllers
 {
@@ -38,6 +41,8 @@ namespace myThat.Controllers
 
         public ActionResult SignIn()
         {
+            if (this.AuthSession.IsAuthenticated)
+                return RedirectToAction("Index", new {camperId = GetCamper().Id});
             return View();
         }
 
@@ -73,6 +78,14 @@ namespace myThat.Controllers
             //forms logout
             FormsAuthentication.SignOut();
             return RedirectToAction("Index", "Home");
+        }
+
+        public Camper GetCamper()
+        {
+            using (var uow = new UnitOfWork(""))
+            {
+                return new CamperQueryObject(uow).RestrictByEmail(this.AuthSession.Email).GetSingle();
+            }
         }
 
         public override ActionResult AuthenticationErrorResult

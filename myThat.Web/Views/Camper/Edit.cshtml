@@ -25,7 +25,7 @@
 }
 
 </style>
-<h2>Tell us a little more about You</h2>
+<h2>Tell us a little more about you</h2>
 <div ng-app="camperApp">
     <div ng-controller="camperEditCtrl">
 
@@ -84,7 +84,7 @@
                         Profile Picture<input type="file" ng-file-select="onFileSelect($files)">
                     </span>
                     <label for="imagePath" style="padding-left:5px">{{image.name}}</label>
-                    <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#imagePreview" ng-hide="true">
+                    <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#imagePreview" ng-show="camper.profileImageName">
                         Preview Image 
                     </button>
                 </div>
@@ -107,7 +107,7 @@
                         <h4 class="modal-title" id="myModalLabel">Modal title</h4>
                     </div>
                     <div class="modal-body">
-                        <img src="" id="profilePic" alt="">
+                        <img id="profilePic" ng-src="http://localhost:56385{{camper.imagePath}}">
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
